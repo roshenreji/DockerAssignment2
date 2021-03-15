@@ -12,7 +12,7 @@ ENTRYPOINT ["java", "-jar", "studentApplication-0.0.1-SNAPSHOT.jar"]
 
 ### Step 2: Build the docker file
 ````
-docker build -t spring-demo-docker
+docker build -t spring-demo-docker .
 ````
 
 ### Step 3: Create a Docker Compose File(docker-compose)
