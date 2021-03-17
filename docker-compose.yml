@@ -8,6 +8,8 @@ services:
       - MYSQL_DATABASE=demo
     ports:
       - "3307:3306"
+    volumes:
+      - springVolume:/var/lib/mysql 
   springboot-docker-container:
     image: spring-demo-docker
     ports:
@@ -21,3 +23,7 @@ services:
       dockerfile: "dockerfile"
     depends_on:
       - mysql-newdocker
+volumes:
+  springVolume:
+  
+  

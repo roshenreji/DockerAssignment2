@@ -143,3 +143,35 @@ springboot-docker-container_1  | 2021-03-15 13:38:27.815  INFO 1 --- [          
 springboot-docker-container_1  | 2021-03-15 13:38:42.720  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http) with context path ''
 springboot-docker-container_1  | 2021-03-15 13:38:42.739  INFO 1 --- [           main] c.m.s.StudentApplication                 : Started StudentApplication in 47.29 seconds (JVM running for 51.726)
 ````
+
+### Step 6: To add Volume
+````
+version: '3'
+services:
+  mysql-newdocker:
+    image: 'mysql:5.7'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=demo
+    ports:
+      - "3307:3306"
+    volumes:
+      - springVolume:/var/lib/mysql 
+  springboot-docker-container:
+    image: spring-demo-docker
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-newdocker:3306/demo?autoReconnect=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+    build:
+      context: "./"
+      dockerfile: "dockerfile"
+    depends_on:
+      - mysql-newdocker
+volumes:
+  springVolume:
+  
+````
